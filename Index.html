@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adaptive Street Light Intensity Control System</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+      <div class="logo">💡</div>
+      <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="nav-btn" data-tab="description">📝 Description</button>
+      <button class="nav-btn" data-tab="algorithms">⚙️ Algorithms</button>
+      <button class="nav-btn" data-tab="graphs">📈 Graphs</button>
+      <button class="nav-btn" data-tab="live">🎥 Live Example</button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      
+      <!-- TAB 1: DASHBOARD -->
+      <section id="dashboard" class="tab-content active">
+        <h2>System Operational Overview</h2>
+        <div class="status-card">
+          <h3>Conditional Logic Framework (CLC) Rules</h3>
+          <p>☀️ <strong>Daylight Mode (06:00 AM):</strong> LDR sensor forces relay OFF to minimize energy waste.</p>
+          <p>🌙 <strong>Standby Mode (06:00 PM):</strong> System arms RTC temporal gate and enters low-power standby.</p>
+          <p>🚶 <strong>Occupancy Sensing:</strong> PIR sensor detects movement $\rightarrow$ 100% illumination; turns OFF/dims when idle.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card"><canvas id="pieChartDash"></canvas></div>
+          <div class="card"><canvas id="lineChartDash"></canvas></div>
+        </div>
+      </section>
+
+      <!-- TAB 2: DESCRIPTION -->
+      <section id="description" class="tab-content">
+        <h2>Adaptive Street Light Intensity Control & Energy Optimization</h2>
+        <h3>System Overview</h3>
+        <p>This edge-native Cyber-Physical System (CPS) replaces static municipal lighting with dynamic sensor fusion (LDR + PIR + DS3231 RTC) on an ATmega328P microcontroller, operating with zero network dependency and sub-200ms latency.</p>
+        
+        <h3>Key Metrics & Objectives</h3>
+        <ul>
+          <li><strong>42.6% Energy Reduction:</strong> Suppresses unnecessary illumination during 00:00–05:00 off-peak hours.</li>
+          <li><strong>Safety Bias (99.2% Recall):</strong> Prioritizes pedestrian safety through zero-memory state-feedback control.</li>
+          <li><strong>Scalable Impact:</strong> Projects $149,000/year savings and 55 metric tonnes CO₂ reduction per 10,000 nodes.</li>
+        </ul>
+
+        <h3>Three-Layer Architecture</h3>
+        <p><strong>1. Perception:</strong> LDR (10-bit ADC), PIR HC-SR501 (5m range), DS3231 RTC via I2C.</p>
+        <p><strong>2. Cognitive:</strong> Control law $u(t) = S_{\text{atm}} \land (P_{\text{time}} \lor M)$ evaluated every 1 second.</p>
+        <p><strong>3. Actuator:</strong> 5V relay switching a 12V DC LED circuit.</p>
+      </section>
+
+      <!-- TAB 3: ALGORITHMS -->
+      <section id="algorithms" class="tab-content">
+        <h2>Core System Algorithms</h2>
+        <div class="card">
+          <h3>1. Multi-Modal Sensor Fusion Control Law</h3>
+          <p>Combines ambient light ($S_{\text{atm}}$), temporal gating ($P_{\text{time}}$), and PIR motion ($M$):</p>
+          <code>u(t) = S_atm AND (P_time OR M)</code>
+        </div>
+        <div class="card">
+          <h3>2. Schmitt-Trigger Hysteresis Thresholding</h3>
+          <p>Prevents relay chatter during twilight transitions ($400 \pm 20$ ADC) by establishing stable upper and lower switching boundaries.</p>
+        </div>
+        <div class="card">
+          <h3>3. Binary Classification Control Framework</h3>
+          <p>Validated over 1,000 cycles (TP=495, TN=490, FP=10, FN=5):</p>
+          <p><strong>Accuracy:</strong> 98.4% | <strong>Precision:</strong> 97.1% | <strong>Recall:</strong> 99.2% | <strong>F1-Score:</strong> 0.981</p>
+        </div>
+      </section>
+
+      <!-- TAB 4: GRAPHS -->
+      <section id="graphs" class="tab-content">
+        <h2>Energy & Classifier Analytics</h2>
+        <div class="grid-2">
+          <div class="card"><canvas id="pieChartFull"></canvas></div>
+          <div class="card"><canvas id="lineChartFull"></canvas></div>
+        </div>
+        <div class="card full-width"><canvas id="barChartYearly"></canvas></div>
+      </section>
+
+      <!-- TAB 5: LIVE EXAMPLE -->
+      <section id="live" class="tab-content">
+        <h2>Live Hardware Simulation</h2>
+        <div class="simulation-canvas" id="simArea">
+          <div class="lamp-post" id="lamp">
+            <div class="light-beam" id="lightBeam"></div>
+          </div>
+          <div class="road"></div>
+          <div class="status-indicator" id="simStatus">Status: Idle (Standby / No Motion)</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="charts.js"></script>
+  <script src="simulation.js"></script>
+</body>
+</html>
