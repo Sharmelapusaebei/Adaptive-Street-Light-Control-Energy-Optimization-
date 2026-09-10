@@ -1,4 +1,4 @@
-# Adaptive-Street-Light-Control-Energy-Optimization-
+# Adaptive Street Light Control Energy-Optimization
 The Adaptive Street Light Intensity Control and Energy Consumption Optimization System is an intelligent, automated municipal lighting solution designed to reduce grid energy consumption without compromising public safety. Traditional street lighting systems operate on fixed high-wattage schedules, consuming full power regardless of actual traffic, pedestrian presence, or environmental lighting conditions. This system dynamically regulates LED intensity based on real-time environmental inputs and time-of-day logic.
 # Purpose & Key Objectives
 Energy Conservation: Minimizes overall power usage during low-traffic overnight hours by dynamically dimming fixtures rather than leaving them at 100% brightness.
